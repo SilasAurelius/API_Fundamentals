@@ -19,9 +19,8 @@ def convert_hectograms_to_pounds(hectograms):
     
     
 def print_pokemon_abilities(pokemon_data):
-    # I wanted the ability list to output in an easier format to read to I used a for loop to iterate over each one.
+    # I wanted the ability list to output in an easier format to read so I used a for loop to iterate over each one.
     if 'abilities' in pokemon_data:
-        print(f"Abilities:")
         for ability in pokemon_data['abilities']:
             ability_name = ability['ability']['name'].title()
             print(f"# {ability_name}")
