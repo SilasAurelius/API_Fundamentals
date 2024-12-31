@@ -1,11 +1,12 @@
 import requests
 import json
-planet_list = []
 
 def fetch_planet_data():
     url = "https://api.le-systeme-solaire.net/rest/bodies/"
     response = requests.get(url)
     planets = response.json()['bodies']
+    
+    planet_list = []
     
     for planet in planets:
         if planet['isPlanet']:
@@ -23,16 +24,17 @@ def fetch_planet_data():
 fetch_planet_data()
 
 def find_heaviest_planet(planets):
-    planets = planet_list
-    max = 0
+    max_mass = 0 # Changed variable name from mass to max_mass
     heaviest_planet_name = ""
     
     for planet in planets:
-        if planet['mass'] > max:
-            max = planet['mass']
-            heaviest_planet_name = planet['name']
+        mass = planet.get('mass')
+        if mass is not None:
+            if max_mass is None or mass > max_mass:
+                max_mass = mass
+                heaviest_planet_name = planet['name']
     
-    return heaviest_planet_name, max
+    return heaviest_planet_name, max_mass
 
 planets = fetch_planet_data()
 name, mass = find_heaviest_planet(planets)
